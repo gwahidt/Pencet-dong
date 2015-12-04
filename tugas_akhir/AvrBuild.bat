@@ -1,0 +1,2 @@
+@ECHO OFF
+"C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\avrasm2.exe" -S "D:\kuliah\assembly language\avr\tugas_akhir\labels.tmp" -fI -W+ie -o "D:\kuliah\assembly language\avr\tugas_akhir\tugas_akhir.hex" -d "D:\kuliah\assembly language\avr\tugas_akhir\tugas_akhir.obj" -e "D:\kuliah\assembly language\avr\tugas_akhir\tugas_akhir.eep" -m "D:\kuliah\assembly language\avr\tugas_akhir\tugas_akhir.map" "D:\kuliah\assembly language\avr\tugas_akhir\test.asm"
