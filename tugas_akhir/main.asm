@@ -7,49 +7,71 @@
 
 .def temp = r16 ; Temporary variable. Be sure to turn interrupt off before using !!
 .def gamestate = r17 ; 0 = titlescreen, 1 = game playing, 2 = gameover
-.def level = r18
-.def score = r19
-.def time = r20
-.def led_position = r21
+.def level0 = r18 ; low digit for level display
+.def level1 = r19 ; high digit for level display
+.def score0 = r20 ; low digit for score display
+.def score1 = r21 ; high digit for score display
+.def time = r22
+.def life = r23
+.def led_position = r24
 
-.equ WIN_POSITION = 0b00001000 ; winning light addresss
+.def delimiter = r3
+.def win_position = r4
+.def char_buffer = r5 ; For displaying character
+
+.equ WINPOS = 0b00001000 ; winning light addresss
+.equ DELIM = 0xFF
+.equ NUMBER_OFFSET = 0x30
+.equ TOP_LINE_ADDR = 0x80
+.equ BOTTOM_LINE_ADDR = 0xC0
 
 
 ; Arbitrary CPU clock timing component
-.def timing1 = r23 
-.def timing2 = r24
+.def timing1 = r25
+.def timing2 = r26
 
 .org $00
 	rjmp reset
 .org $01
 	rjmp buttonpress ; Redirects buttonpress interrupt
 .org $04
-	;insert timer0 compare event here
+	rjmp timer
 
 reset:
 	ldi temp,low(RAMEND)
 	out SPL,temp
 	ldi temp,high(RAMEND)
 	out SPH,temp
-	rcall reset_lcd
-	rjmp main
+	ldi temp, WINPOS
+	mov win_position, temp
+	ldi temp, DELIM
+	mov delimiter, temp
+	rcall init_lcd
+	rjmp titlescreen
 
 ; Wait for input.
 wait:
 rjmp wait
 
-reset_lcd:
+init_lcd:
 	cbi PORTA,1 ; CLR RS
 	ldi temp,0x38 ; MOV DATA,0x38 --> 8bit, 2line, 5x7
 	out PORTB,temp
 	rcall enable
-	ldi temp,$0E ; MOV DATA,0x0E --> disp ON, cursor ON, blink OFF
+	ldi temp,$0C ; MOV DATA,0x0E --> disp ON, cursor ON, blink OFF
 	out PORTB,temp
 	rcall enable
-	ldi PB,$01 ; MOV DATA,0x01
-	out PORTB,PB
-	rcall enable
 	ldi temp,$06 ; MOV DATA,0x06 --> increase cursor, display sroll OFF
+	out PORTB,temp
+	rcall enable
+	rcall clear_display
+	ret
+
+clear_display:
+	ldi temp, 0x01 ; --> Clear display
+	out PORTB,temp
+	rcall enable
+	ldi temp, 0x02 ; --> Reset cursor position
 	out PORTB,temp
 	rcall enable
 	ret
@@ -59,6 +81,39 @@ enable:
 	cbi PORTA,0 ; CLR EN
 	ret
 
+write_top_line:
+	ldi temp, TOP_LINE_ADDR
+	out PORTB, temp
+	rcall enable
+	rjmp write_line
+
+write_bottom_line:
+	ldi temp, BOTTOM_LINE_ADDR
+	out PORTB, temp
+	rcall enable
+	rjmp write_line
+
+write_line:
+	lpm
+	cp delimiter, r0
+	breq write_line_done
+	adiw Z, 1
+	mov char_buffer, r0
+	rcall write_char
+	rjmp write_line
+write_line_done:
+	ret
+	
+write_char:
+	sbi PORTA,1
+	mov temp, char_buffer
+	out PORTB, temp
+	rcall enable
+	cbi PORTA,1
+	ret
+
+
+
 buttonpress: ; Reads button input, and act accordingly
 	mov r2, temp
 	pop temp ; Disables interrupt return.
@@ -66,11 +121,11 @@ buttonpress: ; Reads button input, and act accordingly
 
 	ldi temp,0
 	cp temp, gamestate
-	breq game
+	breq game_relay
 
 	ldi temp,1
 	cp temp, gamestate
-	breq gamelogic
+	breq gamelogic_relay
 
 	ldi temp,2
 	cp temp, gamestate

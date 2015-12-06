@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.12  D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm Sun Dec 06 23:13:12 2015
+AVRASM ver. 2.1.12  D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm Mon Dec 07 02:22:45 2015
 
 
 EQU  SIGNATURE_000 0000001e
@@ -471,20 +471,43 @@ EQU  OC0addr      0000000e
 EQU  ERDYaddr     0000000f
 EQU  SPMRaddr     00000010
 EQU  INT_VECTORS_SIZE 00000011
-CSEG init         00000030
+CSEG titlescreen  00000050
+CSEG clear_display 0000001c
+CSEG title_message_top 00000062
+CSEG write_top_line 00000026
+CSEG title_message_bottom 0000006b
+CSEG write_bottom_line 0000002a
 DEF  temp         r16
-CSEG main         00000007
-CSEG game         00000032
-CSEG gamelogic    00000032
-CSEG gameover     00000032
+DEF  score1       r21
+EQU  NUMBER_OFFSET 00000030
+DEF  char_buffer  r5
+CSEG write_char   00000036
+DEF  score0       r20
+CSEG wait         0000000f
+CSEG game_relay   00000060
+CSEG game         00000100
+CSEG gamelogic_relay 00000061
+CSEG gamelogic    00000100
+CSEG timer        00000100
+CSEG gameover     00000090
 DEF  gamestate    r17
-DEF  level        r18
-DEF  score        r19
-DEF  time         r20
-DEF  led_position r21
-EQU  WIN_POSITION 00000008
-DEF  timing1      r23
-DEF  timing2      r24
-CSEG reset        00000002
-CSEG buttonpress  00000009
-CSEG error        00000016
+DEF  level0       r18
+DEF  level1       r19
+DEF  time         r22
+DEF  life         r23
+DEF  led_position r24
+DEF  delimiter    r3
+DEF  win_position r4
+EQU  WINPOS       00000008
+EQU  DELIM        000000ff
+EQU  TOP_LINE_ADDR 00000080
+EQU  BOTTOM_LINE_ADDR 000000c0
+DEF  timing1      r25
+DEF  timing2      r26
+CSEG reset        00000005
+CSEG buttonpress  0000003c
+CSEG init_lcd     00000010
+CSEG enable       00000023
+CSEG write_line   0000002e
+CSEG write_line_done 00000035
+CSEG error        00000049

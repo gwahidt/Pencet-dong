@@ -22,13 +22,26 @@
   <FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\tugas_akhir.map</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <init><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\init.asm</FILE><LINE>5</LINE></init>
-  <main><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>35</LINE></main>
-  <game><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\game.asm</FILE><LINE>4</LINE></game>
-  <gamelogic><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\game.asm</FILE><LINE>7</LINE></gamelogic>
-  <gameover><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\gameover.asm</FILE><LINE>4</LINE></gameover>
-  <reset><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>27</LINE></reset>
-  <buttonpress><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>39</LINE></buttonpress>
-  <error><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>58</LINE></error>
+  <titlescreen><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\init.asm</FILE><LINE>6</LINE></titlescreen>
+  <clear_display><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>70</LINE></clear_display>
+  <title_message_top><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\init.asm</FILE><LINE>31</LINE></title_message_top>
+  <write_top_line><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>84</LINE></write_top_line>
+  <title_message_bottom><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\init.asm</FILE><LINE>33</LINE></title_message_bottom>
+  <write_bottom_line><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>90</LINE></write_bottom_line>
+  <write_char><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>107</LINE></write_char>
+  <wait><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>53</LINE></wait>
+  <game_relay><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\init.asm</FILE><LINE>25</LINE></game_relay>
+  <game><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\game.asm</FILE><LINE>5</LINE></game>
+  <gamelogic_relay><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\init.asm</FILE><LINE>28</LINE></gamelogic_relay>
+  <gamelogic><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\game.asm</FILE><LINE>8</LINE></gamelogic>
+  <timer><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\game.asm</FILE><LINE>10</LINE></timer>
+  <gameover><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\gameover.asm</FILE><LINE>5</LINE></gameover>
+  <reset><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>40</LINE></reset>
+  <buttonpress><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>117</LINE></buttonpress>
+  <init_lcd><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>56</LINE></init_lcd>
+  <enable><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>79</LINE></enable>
+  <write_line><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>96</LINE></write_line>
+  <write_line_done><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>104</LINE></write_line_done>
+  <error><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>136</LINE></error>
  </LABELS>
 </ASSEMBLER_INFO>
