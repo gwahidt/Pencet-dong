@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.12  D:\kuliah\assembly language\avr\tugas_akhir\test.asm Sat Dec 05 00:22:32 2015
+AVRASM ver. 2.1.12  D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm Sun Dec 06 23:13:12 2015
 
 
 EQU  SIGNATURE_000 0000001e
@@ -471,7 +471,20 @@ EQU  OC0addr      0000000e
 EQU  ERDYaddr     0000000f
 EQU  SPMRaddr     00000010
 EQU  INT_VECTORS_SIZE 00000011
+CSEG init         00000030
 DEF  temp         r16
-CSEG res          00000003
-CSEG press        00000011
-CSEG forever      00000010
+CSEG main         00000007
+CSEG game         00000032
+CSEG gamelogic    00000032
+CSEG gameover     00000032
+DEF  gamestate    r17
+DEF  level        r18
+DEF  score        r19
+DEF  time         r20
+DEF  led_position r21
+EQU  WIN_POSITION 00000008
+DEF  timing1      r23
+DEF  timing2      r24
+CSEG reset        00000002
+CSEG buttonpress  00000009
+CSEG error        00000016

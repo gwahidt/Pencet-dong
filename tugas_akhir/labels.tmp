@@ -1,26 +1,34 @@
 <ASSEMBLER_INFO>
  <VERSION>2.1.12</VERSION>
  <DEVICE>ATmega8515</DEVICE>
- <WORKING_DIR>D:\kuliah\assembly language\avr\tugas_akhir</WORKING_DIR>
+ <WORKING_DIR>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir</WORKING_DIR>
  <INCLUDE_PATH>
   <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
  </INCLUDE_PATH>
- <SOURCE_FILE>D:\kuliah\assembly language\avr\tugas_akhir\test.asm</SOURCE_FILE>
+ <SOURCE_FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
   <FILE>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes\m8515def.inc</FILE>
+  <FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\init.asm</FILE>
+  <FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\game.asm</FILE>
+  <FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\gameover.asm</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>D:\kuliah\assembly language\avr\tugas_akhir\tugas_akhir.obj</FILE>
+  <FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\tugas_akhir.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
-  <FILE>D:\kuliah\assembly language\avr\tugas_akhir\tugas_akhir.hex</FILE>
+  <FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\tugas_akhir.hex</FILE>
  </HEX_FILES>
  <OUTPUT_FILES>
-  <FILE>D:\kuliah\assembly language\avr\tugas_akhir\tugas_akhir.map</FILE>
+  <FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\tugas_akhir.map</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <res><FILE>D:\kuliah\assembly language\avr\tugas_akhir\test.asm</FILE><LINE>10</LINE></res>
-  <press><FILE>D:\kuliah\assembly language\avr\tugas_akhir\test.asm</FILE><LINE>30</LINE></press>
-  <forever><FILE>D:\kuliah\assembly language\avr\tugas_akhir\test.asm</FILE><LINE>28</LINE></forever>
+  <init><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\init.asm</FILE><LINE>5</LINE></init>
+  <main><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>35</LINE></main>
+  <game><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\game.asm</FILE><LINE>4</LINE></game>
+  <gamelogic><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\game.asm</FILE><LINE>7</LINE></gamelogic>
+  <gameover><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\gameover.asm</FILE><LINE>4</LINE></gameover>
+  <reset><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>27</LINE></reset>
+  <buttonpress><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>39</LINE></buttonpress>
+  <error><FILE>D:\kuliah\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm</FILE><LINE>58</LINE></error>
  </LABELS>
 </ASSEMBLER_INFO>
