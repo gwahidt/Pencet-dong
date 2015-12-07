@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.12  D:\docs\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm Mon Dec 07 13:19:44 2015
+AVRASM ver. 2.1.12  D:\docs\git\tugas akhir pok\Pencet-dong\tugas_akhir\main.asm Mon Dec 07 14:34:42 2015
 
 
 EQU  SIGNATURE_000 0000001e
@@ -488,19 +488,28 @@ CSEG wait         00000010
 CSEG game_relay   00000072
 CSEG game         00000100
 CSEG gamelogic_relay 00000073
-CSEG gamelogic    0000011c
+CSEG gamelogic    00000150
 DEF  level0       r18
 CSEG level_carry  00000106
 DEF  level1       r19
-CSEG level_intermission 0000010a
-CSEG intermission_top_1 0000011c
-CSEG intermission_top_2 00000122
+CSEG level_intermission 0000010b
+CSEG draw_hud     0000012a
+CSEG intermission_top_1 00000150
+CSEG intermission_top_2 00000156
 CSEG write_line   00000036
-CSEG intermission_bottom 00000125
-CSEG timer        0000011c
+CSEG intermission_bottom 00000159
+DEF  timing2      r26
+CSEG generate_delay 00000124
+DEF  timing1      r25
+CSEG hud_top_1    00000162
+CSEG hud_top_2    00000165
+CSEG hud_bottom_1 00000169
+DEF  life         r23
+CSEG hud_bottom_2 0000016d
+EQU  INITIAL_TIME 00000005
+CSEG timer        00000150
 CSEG gameover     00000090
 DEF  time         r22
-DEF  life         r23
 DEF  led_position r24
 DEF  delimiter    r3
 DEF  win_position r4
@@ -508,8 +517,6 @@ EQU  WINPOS       00000008
 EQU  DELIM        000000ff
 EQU  TOP_LINE_ADDR 00000080
 EQU  BOTTOM_LINE_ADDR 000000c0
-DEF  timing1      r25
-DEF  timing2      r26
 CSEG reset        00000005
 CSEG buttonpress  00000044
 CSEG init_lcd     00000011

@@ -24,6 +24,7 @@
 .equ NUMBER_OFFSET = 0x30
 .equ TOP_LINE_ADDR = 0x80
 .equ BOTTOM_LINE_ADDR = 0xC0
+.equ INITIAL_TIME = 0x05
 
 
 ; Arbitrary CPU clock timing component
