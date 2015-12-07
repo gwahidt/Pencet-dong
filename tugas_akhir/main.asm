@@ -47,6 +47,7 @@ reset:
 	ldi temp, DELIM
 	mov delimiter, temp
 	rcall init_lcd
+	rcall init_button
 	rjmp titlescreen
 
 ; Wait for input.
@@ -66,6 +67,17 @@ init_lcd:
 	rcall enable
 	rcall clear_display
 	ret
+
+init_button:
+	ldi temp, $ff
+	out DDRD, temp
+	;out PORTD, temp
+	ldi temp,0b00001010
+	out MCUCR,temp
+	ldi temp,0b11000000
+	out GICR,temp
+	ret
+
 
 clear_display:
 	ldi temp, 0x01 ; --> Clear display
@@ -111,8 +123,6 @@ write_char:
 	rcall enable
 	cbi PORTA,1
 	ret
-
-
 
 buttonpress: ; Reads button input, and act accordingly
 	mov r2, temp

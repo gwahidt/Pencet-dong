@@ -1,10 +1,11 @@
 ; This one is for title screen stuff, just before playing the game
 
 ; Displays main menu (game title + high score)
-.org $50
+.org $60
 
 titlescreen:
 	rcall clear_display
+	ldi gamestate, 0
 	ldi ZH,high(2*title_message_top)
 	ldi ZL,low(2*title_message_top) 
 	rcall write_top_line
@@ -19,6 +20,7 @@ titlescreen:
 	subi temp, -NUMBER_OFFSET
 	mov char_buffer, temp
 	rcall write_char
+	sei
 	rjmp wait
 
 
