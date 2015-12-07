@@ -3,10 +3,10 @@
    <General>
       <Build>2005</Build>
       <Position>
-         <top>26</top>
-         <bottom>327</bottom>
-         <left>26</left>
-         <right>334</right>
+         <top>278</top>
+         <bottom>579</bottom>
+         <left>1527</left>
+         <right>1835</right>
       </Position>
       <StayOnTop>1</StayOnTop>
       <Target>ATmega8515</Target>
@@ -93,7 +93,7 @@
             <left>215</left>
          </Position>
          <Config index="0">
-            <Color>Yellow</Color>
+            <Color>Red</Color>
             <Name>LED0</Name>
             <PortPin>
                <Port>PORTC</Port>
@@ -102,7 +102,7 @@
             <Invert>0</Invert>
          </Config>
          <Config index="1">
-            <Color>Yellow</Color>
+            <Color>Red</Color>
             <Name>LED1</Name>
             <PortPin>
                <Port>PORTC</Port>
@@ -120,7 +120,7 @@
             <Invert>0</Invert>
          </Config>
          <Config index="3">
-            <Color>Red</Color>
+            <Color>Green</Color>
             <Name>LED3</Name>
             <PortPin>
                <Port>PORTC</Port>
@@ -138,7 +138,7 @@
             <Invert>0</Invert>
          </Config>
          <Config index="5">
-            <Color>Yellow</Color>
+            <Color>Red</Color>
             <Name>LED5</Name>
             <PortPin>
                <Port>PORTC</Port>
@@ -147,7 +147,7 @@
             <Invert>0</Invert>
          </Config>
          <Config index="6">
-            <Color>Yellow</Color>
+            <Color>Red</Color>
             <Name>LED6</Name>
             <PortPin>
                <Port>PORTC</Port>
@@ -156,7 +156,7 @@
             <Invert>0</Invert>
          </Config>
          <Config index="7">
-            <Color>Yellow</Color>
+            <Color>Red</Color>
             <Name>LED7</Name>
             <PortPin>
                <Port>PORTC</Port>

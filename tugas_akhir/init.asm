@@ -1,9 +1,12 @@
 ; This one is for title screen stuff, just before playing the game
 
 ; Displays main menu (game title + high score)
-.org $60
+.org $75
 
 titlescreen:
+	ldi temp, 0x0
+	out PORTC, temp
+	rcall turn_off_display
 	rcall clear_display
 	ldi gamestate, 0
 	ldi ZH,high(2*title_message_top)
@@ -20,8 +23,21 @@ titlescreen:
 	subi temp, -NUMBER_OFFSET
 	mov char_buffer, temp
 	rcall write_char
+	rcall turn_on_display
+	rcall reset_stats
 	sei
 	rjmp wait
+
+reset_stats:
+	ldi life,3
+	ldi level0,0 ; Incremented in game
+	ldi level1,0
+	ldi score0,0
+	ldi score1,0
+	ldi temp, 240
+	mov levelspeed, temp
+	ret
+
 
 
 game_relay:
@@ -29,7 +45,6 @@ game_relay:
 
 gamelogic_relay:
 	rjmp gamelogic
-
 title_message_top:
 	.db "  PENCET DONG!  ", 0xFF ; Two-space wide margin on each side
 title_message_bottom:

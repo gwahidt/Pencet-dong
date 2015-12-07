@@ -14,10 +14,12 @@
 .def time = r22
 .def life = r23
 .def led_position = r24
+.def bounce_flag = r11
 
 .def delimiter = r3
 .def win_position = r4
 .def char_buffer = r5 ; For displaying character
+
 
 .equ WINPOS = 0b00001000 ; winning light addresss
 .equ DELIM = 0xFF
@@ -28,15 +30,26 @@
 
 
 ; Arbitrary CPU clock timing component
-.def timing1 = r25
-.def timing2 = r26
+.def delay1 = r6
+.def delay2 = r7
+
+; Used in timing. Set the delay above for use.
+.def timing1 = r8
+.def timing2 = r9
+
+; Dynamic level speed controller
+.def levelspeed = r10
+
+; TEMPORARY HIGH SCORE STORAGE. TODO : Change to EEPROM-based storage
+.def highscore1 = r12
+.def highscore0 = r13
 
 .org $00
 	rjmp reset
 .org $01
 	rjmp buttonpress ; Redirects buttonpress interrupt
-.org $04
-	rjmp timer
+.org $07
+	rjmp ovf_timer ; Overflow timer
 
 reset:
 	ldi temp,low(RAMEND)
@@ -49,6 +62,7 @@ reset:
 	mov delimiter, temp
 	rcall init_lcd
 	rcall init_button
+	rcall init_led
 	rjmp titlescreen
 
 ; Wait for input.
@@ -56,11 +70,14 @@ wait:
 rjmp wait
 
 init_lcd:
+	ldi temp, $ff
+	out DDRA, temp
+	out DDRB, temp
 	cbi PORTA,1 ; CLR RS
 	ldi temp,0x38 ; MOV DATA,0x38 --> 8bit, 2line, 5x7
 	out PORTB,temp
 	rcall enable
-	ldi temp,$0C ; MOV DATA,0x0E --> disp ON, cursor ON, blink OFF
+	ldi temp,$0C ; MOV DATA,0x0E --> disp ON, cursor OFF, blink OFF
 	out PORTB,temp
 	rcall enable
 	ldi temp,$06 ; MOV DATA,0x06 --> increase cursor, display sroll OFF
@@ -77,6 +94,25 @@ init_button:
 	out MCUCR,temp
 	ldi temp,0b11000000
 	out GICR,temp
+	ret
+
+init_led:
+	ldi temp, $ff
+	out DDRC, temp
+	ldi temp, 0x0
+	out PORTC, temp
+	ret
+
+turn_off_display:
+	ldi temp,$08 ; MOV DATA,0x0E --> disp ON, cursor OFF, blink OFF
+	out PORTB,temp
+	rcall enable
+	ret
+
+turn_on_display:
+	ldi temp,$0C ; MOV DATA,0x0E --> disp ON, cursor OFF, blink OFF
+	out PORTB,temp
+	rcall enable
 	ret
 
 
