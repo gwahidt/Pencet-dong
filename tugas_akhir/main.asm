@@ -20,13 +20,18 @@
 .def win_position = r4
 .def char_buffer = r5 ; For displaying character
 
+.equ SCORE0_ADDR = 0x60
+.equ SCORE1_ADDR = 0x61
 
 .equ WINPOS = 0b00001000 ; winning light addresss
 .equ DELIM = 0xFF
 .equ NUMBER_OFFSET = 0x30
 .equ TOP_LINE_ADDR = 0x80
 .equ BOTTOM_LINE_ADDR = 0xC0
-.equ INITIAL_TIME = 0x05
+.equ INITIAL_TIME = 0x03
+.equ INITIAL_SPEED = 240
+.equ SPEED_SCALING = 20
+.equ SPEED_FACTOR = 100
 
 
 ; Arbitrary CPU clock timing component
@@ -164,6 +169,7 @@ write_char:
 buttonpress: ; Reads button input, and act accordingly
 	mov r2, temp
 	pop temp ; Disables interrupt return.
+	pop temp
 	mov temp, r2
 
 	ldi temp,0

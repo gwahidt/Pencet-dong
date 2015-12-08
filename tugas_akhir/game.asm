@@ -3,7 +3,8 @@
 ; Initialize and run the level
 .org 0x105
 game:
-	ldi gamestate, 1 ;temp
+	; Increments level
+	ldi gamestate, 1
 	ldi temp, 0x9
 	cp temp, level0
 	brne level_carry
@@ -12,6 +13,10 @@ game:
 level_carry:
 	inc level0
 game_init:
+	ldi temp,low(RAMEND)
+	out SPL,temp
+	ldi temp,high(RAMEND)
+	out SPH,temp
 	rcall level_intermission
 	rcall draw_hud
 	rcall game_setting
@@ -131,11 +136,11 @@ draw_hud:
 	ret
 
 game_setting:
-	ldi temp, 100
+	ldi temp, SPEED_FACTOR
 	mov delay1, temp
 	mov temp, levelspeed
 	mov delay2, temp
-	ldi time, 5
+	ldi time, INITIAL_TIME
 	ldi led_position, 0b10000000
 	out PORTC, led_position
 	ldi temp, 0
@@ -146,12 +151,13 @@ game_setting:
 gamelogic:
 	cp led_position, win_position
 	breq win
+lose:
 	tst life
-	breq gameover_relay ; TODO : temporary losing branch
+	breq gameover_relay
 	dec life
 	rjmp game_init
 win:
-	ldi temp, 20
+	ldi temp, SPEED_SCALING
 	sub levelspeed, temp
 	add score0, time
 	ldi temp, 0x0A
@@ -163,6 +169,7 @@ score_carry:
 	rjmp game
 
 ovf_timer:
+	
 
 intermission_top_1: .db "    LEVEL ", 0xFF ; Top intermission message, part 1
 intermission_top_2: .db "    ", 0xFF ; Top intermission message, part 2

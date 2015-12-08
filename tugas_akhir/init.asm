@@ -8,6 +8,12 @@ titlescreen:
 	out PORTC, temp
 	rcall turn_off_display
 	rcall clear_display
+	ldi YH, high(SCORE0_ADDR)
+	ldi YL, low(SCORE0_ADDR)
+	ld temp, Y+
+	mov highscore0, temp
+	ld temp, Y
+	mov highscore1, temp
 	ldi gamestate, 0
 	ldi ZH,high(2*title_message_top)
 	ldi ZL,low(2*title_message_top) 
@@ -15,11 +21,11 @@ titlescreen:
 	ldi ZH,high(2*title_message_bottom)
 	ldi ZL,low(2*title_message_bottom)
 	rcall write_bottom_line
-	mov temp, score1
+	mov temp, highscore1
 	subi temp, -NUMBER_OFFSET
 	mov char_buffer, temp
 	rcall write_char
-	mov temp, score0
+	mov temp, highscore0
 	subi temp, -NUMBER_OFFSET
 	mov char_buffer, temp
 	rcall write_char
@@ -34,7 +40,7 @@ reset_stats:
 	ldi level1,0
 	ldi score0,0
 	ldi score1,0
-	ldi temp, 240
+	ldi temp, INITIAL_SPEED
 	mov levelspeed, temp
 	ret
 
@@ -45,7 +51,6 @@ game_relay:
 
 gamelogic_relay:
 	rjmp gamelogic
-title_message_top:
-	.db "  PENCET DONG!  ", 0xFF ; Two-space wide margin on each side
-title_message_bottom:
-	.db "   HISCORE ", 0xFF ; fill the next two character with score
+
+title_message_top: .db "  PENCET DONG!  ", 0xFF ; Two-space wide margin on each side
+title_message_bottom: .db "   HISCORE ", 0xFF ; fill the next two character with score

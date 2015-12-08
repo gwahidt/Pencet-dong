@@ -35,6 +35,10 @@ display_score:
 display_new_highscore:
 	mov highscore0, score0
 	mov highscore1, score1
+	ldi YH, high(SCORE0_ADDR)
+	ldi YL, low(SCORE0_ADDR)
+	st Y+, score0
+	st Y, score1
 	ldi ZH,high(2*highscore_message)
 	ldi ZL,low(2*highscore_message)
 	rcall write_bottom_line
