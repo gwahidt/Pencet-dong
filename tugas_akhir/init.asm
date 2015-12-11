@@ -1,7 +1,7 @@
 ; This one is for title screen stuff, just before playing the game
 
 ; Displays main menu (game title + high score)
-.org $75
+.org $8C
 
 titlescreen:
 	ldi temp, 0x0

@@ -20,7 +20,7 @@
 .def win_position = r4
 .def char_buffer = r5 ; For displaying character
 
-.equ SCORE0_ADDR = 0x60
+.equ SCORE0_ADDR = 0x60 ; Memory address for score
 .equ SCORE1_ADDR = 0x61
 
 .equ WINPOS = 0b00001000 ; winning light addresss
@@ -53,8 +53,8 @@
 	rjmp reset
 .org $01
 	rjmp buttonpress ; Redirects buttonpress interrupt
-.org $07
-	rjmp ovf_timer ; Overflow timer
+.org $0E
+	rjmp compare_timer ; Overflow timer
 
 reset:
 	ldi temp,low(RAMEND)
@@ -68,6 +68,7 @@ reset:
 	rcall init_lcd
 	rcall init_button
 	rcall init_led
+	rcall init_timer
 	rjmp titlescreen
 
 ; Wait for input.
@@ -106,6 +107,32 @@ init_led:
 	out DDRC, temp
 	ldi temp, 0x0
 	out PORTC, temp
+	ret
+
+init_timer:
+	ldi r16, 0x0 ; (1<<CS02)|(1<<CS00) Timer clock = system clock/1024
+	out TCCR0,r16	
+	ldi temp,1<<OCIE0
+	out TIMSK,temp		; Enable Timer/Counter0 compare int
+	ldi temp,1<<OCF0
+	out TIFR,temp		; Interrupt if compare true in T/C0
+	ldi temp,0xFF
+	out OCR0,temp		; Set compared value
+	ret
+
+start_timer:
+	ldi temp, (1<<CS02)|(1<<CS00) ; (1<<CS02)|(1<<CS00) Timer clock = system clock/1024
+	out TCCR0,temp
+	ret
+
+stop_timer:
+	ldi temp, (0<<CS02)&(0<<CS00)
+	out TCCR0,r16
+	ret
+
+reset_timer:
+	ldi temp, 0
+	out TCNT0, temp
 	ret
 
 turn_off_display:
@@ -180,11 +207,26 @@ buttonpress: ; Reads button input, and act accordingly
 	cp temp, gamestate
 	breq gamelogic_relay
 
-	ldi temp,2
-	cp temp, gamestate
-	breq titlescreen
+;	ldi temp,2
+;	cp temp, gamestate
+;	breq titlescreen
 	
-	rjmp error ; Make sure they never reach this line
+	rjmp titlescreen
 
-error:
-; Displays error on LCD
+compare_timer:
+	rcall stop_timer
+	tst time
+	breq timer_zero
+	subi time, 1
+	ldi temp, 0xCD
+	out PORTB, temp
+	rcall enable
+	mov temp, time
+	subi temp, -NUMBER_OFFSET
+	mov char_buffer, temp
+	rcall write_char
+	rcall start_timer
+	sei
+	ret
+timer_zero:
+	rjmp lose

@@ -18,8 +18,9 @@ game_init:
 	ldi temp,high(RAMEND)
 	out SPH,temp
 	rcall level_intermission
-	rcall draw_hud
 	rcall game_setting
+	rcall draw_hud
+	rcall start_timer
 	sei
 game_loop:
 	rcall generate_delay
@@ -128,14 +129,38 @@ draw_hud:
 	ldi ZH,high(2*hud_bottom_2)
 	ldi ZL,low(2*hud_bottom_2) 
 	rcall write_line
-	ldi temp, INITIAL_TIME
+	mov temp, time
 	subi temp, -NUMBER_OFFSET
 	mov char_buffer, temp
 	rcall write_char
 	rcall turn_on_display
 	ret
 
+display_lose_message:
+	rcall turn_off_display
+	rcall clear_display
+	ldi ZH,high(2*lose_top)
+	ldi ZL,low(2*lose_top) 
+	rcall write_top_line
+	ldi ZH,high(2*lose_bottom)
+	ldi ZL,low(2*lose_bottom) 
+	rcall write_bottom_line
+	mov temp, life
+	subi temp, -NUMBER_OFFSET
+	mov char_buffer, temp
+	rcall write_char
+	rcall turn_on_display
+	ldi temp, 255
+	mov delay1, temp
+	mov delay2, temp
+	rcall generate_delay
+	rcall generate_delay
+	rcall generate_delay
+	ret
+
+
 game_setting:
+	rcall reset_timer
 	ldi temp, SPEED_FACTOR
 	mov delay1, temp
 	mov temp, levelspeed
@@ -152,9 +177,11 @@ gamelogic:
 	cp led_position, win_position
 	breq win
 lose:
+	rcall stop_timer
 	tst life
 	breq gameover_relay
 	dec life
+	rcall display_lose_message
 	rjmp game_init
 win:
 	ldi temp, SPEED_SCALING
@@ -167,8 +194,6 @@ win:
 	sub score0, temp
 score_carry:
 	rjmp game
-
-ovf_timer:
 	
 
 intermission_top_1: .db "    LEVEL ", 0xFF ; Top intermission message, part 1
@@ -178,6 +203,8 @@ hud_top_1: .db " LVL ", 0xFF ; Top HUD element, part 1
 hud_top_2: .db " SCORE ", 0xFF ; Top HUD element, part 2
 hud_bottom_1: .db " LIFE ", 0xFF ; Bottom HUD element, part 1
 hud_bottom_2: .db " TIME ", 0xFF ; Bottom HUD element, part 2
+lose_top: .db "    YOU LOSE    ", 0xFF; lose message top
+lose_bottom: .db "     LIFE ", 0xFF ;lose message bottom
 
 gameover_relay:
 	rjmp gameover
