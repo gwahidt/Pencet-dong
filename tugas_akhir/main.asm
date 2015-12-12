@@ -6,7 +6,7 @@
 .include "gameover.asm"
 
 .def temp = r16 ; Temporary variable. Be sure to turn interrupt off before using !!
-.def gamestate = r17 ; 0 = titlescreen, 1 = game playing, 2 = gameover
+.def gamestate = r17 ; 0 = titlescreen, 1 = game playing, 2 = gameover, 3 = "interrupt dump mode"
 .def level0 = r18 ; low digit for level display
 .def level1 = r19 ; high digit for level display
 .def score0 = r20 ; low digit for score display
@@ -195,8 +195,8 @@ write_char:
 
 buttonpress: ; Reads button input, and act accordingly
 	mov r2, temp
-	pop temp ; Disables interrupt return.
-	pop temp
+;	pop temp ; Disables interrupt return.
+;	pop temp
 	mov temp, r2
 
 	ldi temp,0
@@ -207,10 +207,15 @@ buttonpress: ; Reads button input, and act accordingly
 	cp temp, gamestate
 	breq gamelogic_relay
 
-;	ldi temp,2
-;	cp temp, gamestate
-;	breq titlescreen
-	
+	ldi temp,2
+	cp temp, gamestate
+	breq titlescreen
+
+	ldi temp,3
+	cp temp, gamestate
+	brne skip_dump
+	reti	; Interrupt queue dump
+skip_dump:
 	rjmp titlescreen
 
 compare_timer:
