@@ -4,7 +4,6 @@
 .org 0x105
 game:
 	; Increments level
-	ldi gamestate, 1
 	ldi temp, 0x9
 	cp temp, level0
 	brne level_carry
@@ -13,6 +12,7 @@ game:
 level_carry:
 	inc level0
 game_init:
+	ldi gamestate, 3
 	ldi temp,low(RAMEND)
 	out SPL,temp
 	ldi temp,high(RAMEND)
@@ -22,6 +22,8 @@ game_init:
 	rcall draw_hud
 	rcall start_timer
 	sei
+	ldi temp, 0 ; Does nothing
+	ldi gamestate, 1
 game_loop:
 	rcall generate_delay
 	tst bounce_flag
@@ -175,6 +177,7 @@ game_setting:
 ; Decides victory or defeat
 gamelogic:
 	cp led_position, win_position
+	rcall stop_timer
 	breq win
 lose:
 	rcall stop_timer

@@ -3,7 +3,7 @@
 ; Displays game over message and score. Also check for highscore
 .org 0x200
 gameover:
-	ldi gamestate, 2
+	ldi gamestate, 3
 	rcall turn_off_display
 	rcall clear_display
 	; Draw top part
@@ -46,7 +46,13 @@ display_new_highscore:
 	rjmp wait_gameover
 
 wait_gameover:
+	ldi temp, 255
+	mov delay1, temp
+	mov delay2, temp
+	rcall generate_delay
+	rcall generate_delay
 	sei
+	ldi gamestate, 2
 forever:
 	rjmp forever
 gameover_message: .db "    GAMEOVER    ", 0xFF
